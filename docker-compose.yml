@@ -5,6 +5,11 @@ services:
     build: signaling
     restart: always
     network_mode: host
+    environment:
+      - turn_secret=${turn_secret}
+      - blockkey=${blockkey}
+      - hashkey=${hashkey}
+      - januskey=${januskey}
     depends_on:
       - janus
       - coturn
