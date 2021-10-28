@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   signaling:
-    image: mwalbeck/nextcloud-spreed-signaling
+    build: signaling
     restart: always
     network_mode: host
     depends_on:
