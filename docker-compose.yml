@@ -1,0 +1,29 @@
+version: "3.7"
+
+services:
+  signaling:
+    image: mwalbeck/nextcloud-spreed-signaling
+    restart: always
+    network_mode: host
+    depends_on:
+      - janus
+      - coturn
+      - nats
+
+  janus:
+    build: janus
+    network_mode: host
+    depends_on:
+      - coturn
+    environment:
+      - turn_secret=${turn_secret}
+
+  coturn:
+    build: coturn
+    network_mode: host
+    environment:
+      - signaling_domain=${signaling_domain}
+      - turn_secret=${turn_secret} 
+  nats:
+    image: nats
+    network_mode: host
