@@ -30,5 +30,5 @@ services:
       - signaling_domain=${signaling_domain}
       - turn_secret=${turn_secret} 
   nats:
-    image: nats
+    build: nats
     network_mode: host
