@@ -5,18 +5,30 @@ services:
     build: signaling
     restart: always
     network_mode: host
+    environment:
+      - turn_secret=${turn_secret}
+      - blockkey=${blockkey}
+      - hashkey=${hashkey}
+      - januskey=${januskey}
     depends_on:
       - janus
       - coturn
       - nats
+
   janus:
     build: janus
     network_mode: host
     depends_on:
       - coturn
+    environment:
+      - turn_secret=${turn_secret}
+
   coturn:
     build: coturn
     network_mode: host
+    environment:
+      - signaling_domain=${signaling_domain}
+      - turn_secret=${turn_secret} 
   nats:
     build: nats
     network_mode: host
